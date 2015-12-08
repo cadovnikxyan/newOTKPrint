@@ -8,7 +8,6 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Media;
 import javax.print.attribute.standard.MediaTray;
 import javax.print.attribute.standard.PrinterName;
-
 import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -25,6 +24,7 @@ public class PrintTalon  {
     private String printerName = null;
     private AttributeSet aset = new HashAttributeSet();
     private Map<Integer, Media> trayMap = new HashMap<Integer, Media>(10);
+    private Map<String,Integer> map=new HashMap<String,Integer>(10);
     private PrintService[] services=null;
     private MediaTray selectedTray=null;
     private PrintService defaultPrintService =null;
@@ -45,7 +45,7 @@ public class PrintTalon  {
 		// if there is no input, use the default printer
 		
 		printerName = defaultPrintService.getName();
-		
+		System.out.println(printerName);
 	    }
 
 	static public ArrayList<String> getSystemPrintres(){
@@ -60,24 +60,15 @@ public class PrintTalon  {
 	}
 	public void init(){
 
-        // the printer is selected
-        
+        // the printer is selected    
         aset.add(new PrinterName(printerName, null));
-
         // selection of all print services
         services = PrintServiceLookup.lookupPrintServices(null, aset);
-        // we store all the tray in a hashmap
-      
-        filTrayName();
-     
-        //System.out.println("Select tray target id : ");
-        // mediaId = console.nextLine();
-      
 	}
 	public void createJob(){
-		  if(mediaId!=null){
-	        	
-		        selectTray(mediaId);
+		 
+	        	System.out.println(printerName);
+		     //   selectTray(mediaId);
 
 		            // we have to add the MediaTray selected as attribute
 		            
@@ -100,13 +91,32 @@ public class PrintTalon  {
 		                e.printStackTrace();
 		            }
 		        }
-	}
+	
 	
 	public void setPrinterName(String printer){
-		this.printerName=printer;
+		this.printerName="\\\\ps2\\"+printer.replaceFirst(printer.charAt(0)+"", "");
 	}
 	public void setMediaId(String id){
-		this.mediaId=id;
+//		int count=0;
+//		System.out.println(id);
+//		while(trayMap.values().iterator().hasNext()){
+//			count++;
+//			System.out.println(trayMap.values().iterator().next());
+//			if(trayMap.values().iterator().next().toString().contains(id)){
+//				if(trayMap.values().iterator() instanceof MediaTray){
+//					this.selectedTray=(MediaTray) trayMap.values().iterator();
+//					break;
+//				}
+//			}else{
+//				trayMap.values().iterator().next();
+//				if(count==3){
+//					break;
+//				}
+//			}
+//		}
+		
+		this.selectedTray = (MediaTray) trayMap.get(Integer.valueOf(id));
+	       System.out.println("Selected tray : " + selectedTray.toString());
 	}
 	
 	
@@ -133,10 +143,13 @@ public class PrintTalon  {
                 for (Media media : (Media[]) o) {
                     // we collect the MediaTray available
                     if (media instanceof MediaTray) {
-//                        System.out.println(media.getValue() + " : "
-//                    + media + " - " + media.getClass().getName());
-                    	
-                    	trayArray.add(new String(media+"").replace("-Feeder", ""));
+                        System.out.println(media.getValue() + " : "
+                    + media + " - " + media.getClass().getName());
+                    	String buf=new String(media+":"+media.getValue()).replace("-Feeder", "");
+                    	if(!trayArray.contains(buf)){
+                    		trayArray.add(buf);
+                    		
+                    	}
                         trayMap.put(media.getValue(), media);
                         
                         

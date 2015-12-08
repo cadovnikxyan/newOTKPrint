@@ -6,7 +6,7 @@ import javax.swing.SwingUtilities;
 
 public class SettingsView {
 
-	private JFrame frame=new JFrame("Настройки");
+	private JFrame frame=new JFrame("РќР°СЃС‚СЂРѕР№РєРё");
 	
 	
 	

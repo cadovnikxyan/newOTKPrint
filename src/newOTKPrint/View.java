@@ -188,7 +188,7 @@ public class View  {
 	public void run() throws ParserConfigurationException, SAXException{
 		frame.setVisible(true);
 	}
-	// �� ����, ���� ������� ���������� �� ���� ������ � ������ ������ ���� ���� �������
+	
 	private void spinnerXmlInit(){
 		
 		try {
@@ -293,9 +293,25 @@ public class View  {
 		JButton _button= new JButton("Печать");
 		ArrayList<String> array=talon.getTrayArray();
 		ArrayList<String> parray=PrintTalon.getSystemPrintres();
+		System.out.println(parray);
 		comboboxTray.setModel(new DefaultComboBoxModel(array.toArray()));
 		comboboxPrint.setModel(new DefaultComboBoxModel(parray.toArray()));
-
+		
+		comboboxPrint.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				talon.setPrinterName(
+				comboboxPrint.getSelectedItem().toString());
+				talon.init();
+				talon.filTrayName();
+				ArrayList<String> _array=talon.getTrayArray();
+				comboboxTray.setModel(new DefaultComboBoxModel(_array.toArray()));
+				comboboxTray.updateUI();
+			}
+		});
+		
 		menubar.add(file);
 		panel.add(_button);
 		panel.add(label4);
@@ -304,9 +320,6 @@ public class View  {
 		panel.add(comboboxPrint);
 		panel.setLayout(new FlowLayout());
 		menubar.add(panel);
-
-		
-		
 		
 		file.add(saveItem);
 		file.add(settings);
@@ -314,9 +327,12 @@ public class View  {
 		_button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
-				talon.setMediaId(comboboxTray.getSelectedItem().toString());
-				talon.setPrinterName(comboboxPrint.getSelectedItem().toString());
 				
+				talon.setMediaId(comboboxTray.getSelectedItem().toString().split(":")[1]);
+				talon.setPrinterName(comboboxPrint.getSelectedItem().toString());
+				talon.init();
+				talon.filTrayName();
+				talon.createJob();
 			}
 		});
 		settings.addActionListener(new ActionListener() {
