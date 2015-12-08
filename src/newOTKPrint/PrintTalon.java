@@ -27,8 +27,9 @@ public class PrintTalon  {
     private Map<Integer, Media> trayMap = new HashMap<Integer, Media>(10);
     private PrintService[] services=null;
     private MediaTray selectedTray=null;
-    private  PrintService defaultPrintService =null;
+    private PrintService defaultPrintService =null;
     private ArrayList<String> trayArray=new ArrayList<String>();
+    
     private PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
     
     
@@ -44,9 +45,19 @@ public class PrintTalon  {
 		// if there is no input, use the default printer
 		
 		printerName = defaultPrintService.getName();
-	        
+		
 	    }
 
+	static public ArrayList<String> getSystemPrintres(){
+		ArrayList<String> printerArray=new ArrayList<String>();
+		PrintService[] prints=PrintServiceLookup.lookupPrintServices(null, null);
+		for(Object o : prints){
+			printerArray.add(o.toString().replace("Win32 Printer :", "")
+					.replace("\\\\ps2\\" ,""));
+		}
+		return printerArray;
+		
+	}
 	public void init(){
 
         // the printer is selected
@@ -125,7 +136,7 @@ public class PrintTalon  {
 //                        System.out.println(media.getValue() + " : "
 //                    + media + " - " + media.getClass().getName());
                     	
-                    	trayArray.add(media+"");
+                    	trayArray.add(new String(media+"").replace("-Feeder", ""));
                         trayMap.put(media.getValue(), media);
                         
                         

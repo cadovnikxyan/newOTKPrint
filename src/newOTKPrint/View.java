@@ -3,6 +3,7 @@ package newOTKPrint;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
@@ -16,7 +17,6 @@ import java.awt.event.WindowListener;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.management.modelmbean.XMLParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -45,6 +45,8 @@ public class View  {
 	final private Label label1=new Label("Заводской номер",Label.CENTER);
 	final private Label label2=new Label("Количество",Label.CENTER);
 	final private Label label3=new Label("Наименование изделия",Label.CENTER);
+	final private Label label4=new Label("Лоток");
+	final private Label label5=new Label("Принтер");
 	
 	final private JButton button= new JButton();
 	final private JButton button1= new JButton();
@@ -60,7 +62,9 @@ public class View  {
 	final private JSpinner spinner2=new JSpinner();
 	
 	final private JComboBox combobox=new JComboBox(); 
-
+	final private JComboBox comboboxTray= new JComboBox();
+	final private JComboBox comboboxPrint= new JComboBox();
+	
 	final private JMenuBar menubar= new JMenuBar();
 	
 	private XmlParserSettings xml = null;
@@ -73,13 +77,14 @@ public class View  {
 	
 	
 	public View() throws ParserConfigurationException, SAXException, IOException{
-		frame.setPreferredSize(new Dimension(500, 170));
+		frame.setPreferredSize(new Dimension(600, 170));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
 		
 		talon.init();
 		talon.filTrayName();
-		ArrayList<String> array=talon.getTrayArray();
-		settingsView.init(array.toArray());
+		
+		
 		
 		menuInit();
 		
@@ -209,8 +214,7 @@ public class View  {
 		panel.add(spinner,BorderLayout.SOUTH);
 		alignmentSpinner(spinner);		
 		panel.setBorder(new CompoundBorder(new LineBorder(Color.black), null));
-	
-	
+
 	}
 	private void drowPane1(){
 		panel1.setLayout(new BorderLayout());
@@ -285,16 +289,33 @@ public class View  {
 		JMenu file=new JMenu("Файл");
 		JMenuItem saveItem=new JMenuItem("Сохранить");
 		JMenuItem settings= new JMenuItem("Настройки");
+		JPanel panel= new JPanel();
 		JButton _button= new JButton("Печать");
+		ArrayList<String> array=talon.getTrayArray();
+		ArrayList<String> parray=PrintTalon.getSystemPrintres();
+		comboboxTray.setModel(new DefaultComboBoxModel(array.toArray()));
+		comboboxPrint.setModel(new DefaultComboBoxModel(parray.toArray()));
+
 		menubar.add(file);
-		menubar.add(_button);
+		panel.add(_button);
+		panel.add(label4);
+		panel.add(comboboxTray);
+		panel.add(label5);
+		panel.add(comboboxPrint);
+		panel.setLayout(new FlowLayout());
+		menubar.add(panel);
+
+		
+		
+		
 		file.add(saveItem);
 		file.add(settings);
 		
 		_button.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent arg0) {
-				
+				talon.setMediaId(comboboxTray.getSelectedItem().toString());
+				talon.setPrinterName(comboboxPrint.getSelectedItem().toString());
 				
 			}
 		});

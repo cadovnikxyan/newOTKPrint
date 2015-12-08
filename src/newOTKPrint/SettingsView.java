@@ -1,22 +1,22 @@
 package newOTKPrint;
 
 import java.awt.Dimension;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class SettingsView {
 
 	private JFrame frame=new JFrame("Настройки");
-	private JPanel panel= new JPanel();
-	private JComboBox combobox= new JComboBox();
+	
+	
+	
+	
+	
+	
 	
 	public void init(Object[] tray){
-		combobox.setModel(new DefaultComboBoxModel(tray));
-		panel.add(combobox);
-		frame.getContentPane().add(panel);
+		
+		
 	}
 	
 	public void run(){
