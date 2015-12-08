@@ -293,7 +293,6 @@ public class View  {
 		JButton _button= new JButton("Печать");
 		ArrayList<String> array=talon.getTrayArray();
 		ArrayList<String> parray=PrintTalon.getSystemPrintres();
-		System.out.println(parray);
 		comboboxTray.setModel(new DefaultComboBoxModel(array.toArray()));
 		comboboxPrint.setModel(new DefaultComboBoxModel(parray.toArray()));
 		
@@ -301,12 +300,15 @@ public class View  {
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
 				talon.setPrinterName(
 				comboboxPrint.getSelectedItem().toString());
+				long start=System.currentTimeMillis();
 				talon.init();
 				talon.filTrayName();
+				long stop=System.currentTimeMillis();
+				System.out.println(stop-start);
 				ArrayList<String> _array=talon.getTrayArray();
+				
 				comboboxTray.setModel(new DefaultComboBoxModel(_array.toArray()));
 				comboboxTray.updateUI();
 			}
@@ -331,7 +333,7 @@ public class View  {
 				talon.setMediaId(comboboxTray.getSelectedItem().toString().split(":")[1]);
 				talon.setPrinterName(comboboxPrint.getSelectedItem().toString());
 				talon.init();
-				talon.filTrayName();
+//				talon.filTrayName();
 				talon.createJob();
 			}
 		});
