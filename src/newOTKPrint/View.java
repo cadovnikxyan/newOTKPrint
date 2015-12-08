@@ -41,12 +41,12 @@ public class View  {
 	
 	final private JFrame frame= new JFrame("OTK_Print");
 
-	final private Label label=new Label("Номер Талона",Label.CENTER);
-	final private Label label1=new Label("Заводской номер",Label.CENTER);
-	final private Label label2=new Label("Количество",Label.CENTER);
-	final private Label label3=new Label("Наименование изделия",Label.CENTER);
-	final private Label label4=new Label("Лоток");
-	final private Label label5=new Label("Принтер");
+	final private Label label=new Label("РќРѕРјРµСЂ С‚Р°Р»РѕРЅР°",Label.CENTER);
+	final private Label label1=new Label("Р—Р°РІРѕРґСЃРєРѕР№ РЅРѕРјРµСЂ",Label.CENTER);
+	final private Label label2=new Label("РљРѕР»РёС‡РµСЃС‚РІРѕ",Label.CENTER);
+	final private Label label3=new Label("РќР°РёРјРµРЅРѕРІР°РЅРёРµ РёР·РґРµР»РёСЏ",Label.CENTER);
+	final private Label label4=new Label("Р›РѕС‚РѕРє");
+	final private Label label5=new Label("РџСЂРёРЅС‚РµСЂ");
 	
 	final private JButton button= new JButton();
 	final private JButton button1= new JButton();
@@ -129,7 +129,7 @@ public class View  {
 					spinnerXmlInit();
 				}catch(IOException e){
 					e.printStackTrace();
-					JOptionPane.showMessageDialog(frame, "Файл настроек не найден!");
+					JOptionPane.showMessageDialog(frame, "Р¤Р°Р№Р» РЅР°СЃС‚СЂРѕРµРє РїРѕРІСЂРµР¶РґРµРЅ РёР»Рё СѓРґР°Р»РµРЅ!");
 					
 				} catch (ParserConfigurationException e) {
 					// TODO Auto-generated catch block
@@ -157,9 +157,9 @@ public class View  {
 			
 			public void windowClosing(WindowEvent arg0) {
 				// TODO Auto-generated method stub
-				Object[] options ={"Да","Нет"};
-				int con=JOptionPane.showOptionDialog(arg0.getWindow(), "Закрыть программу?"
-						,"Внимание!",JOptionPane.YES_NO_OPTION,
+				Object[] options ={"Р”Р°","РќРµС‚"};
+				int con=JOptionPane.showOptionDialog(arg0.getWindow(), "Р—Р°РєСЂС‹С‚СЊ РџСЂРѕРіСЂР°РјРјСѓ?"
+						,"Р’РЅРёРјР°РЅРёРµ!",JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE,null,
 						options,options[0] );
 				if(con==0){
@@ -188,7 +188,7 @@ public class View  {
 	public void run() throws ParserConfigurationException, SAXException{
 		frame.setVisible(true);
 	}
-	// ХЗ ВАЩЕ, НАДО ПОЙМАТЬ ИСКЛЮЧЕНИЯ ОТ ВСЕХ ВЬЮШЕК И ВЫДАТЬ ТОЛЬКО ОДНО ОКНО ДИАЛОГА
+	// пїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	private void spinnerXmlInit(){
 		
 		try {
@@ -200,11 +200,11 @@ public class View  {
 		} 
 		 catch (XMLParseException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(frame, "Ошибка чтения файла настроек!");
+			JOptionPane.showMessageDialog(frame, "РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р° РЅР°СЃС‚СЂРѕРµРє!");
 			
 		} catch (NullPointerException ne){
 			ne.printStackTrace();
-			JOptionPane.showMessageDialog(frame, "Ошибка чтения файла настроек!");
+			JOptionPane.showMessageDialog(frame, "РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р° РЅР°СЃС‚СЂРѕРµРє!");
 		}
 	}
 	
@@ -256,7 +256,7 @@ public class View  {
 			
 			public void mouseMoved(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				button.setToolTipText("Подсказка!");
+				button.setToolTipText("РџРѕРґСЃРєР°Р·РєР°!");
 			}
 			
 			public void mouseDragged(MouseEvent arg0) {
@@ -286,11 +286,11 @@ public class View  {
 
 
 	private void menuInit(){
-		JMenu file=new JMenu("Файл");
-		JMenuItem saveItem=new JMenuItem("Сохранить");
-		JMenuItem settings= new JMenuItem("Настройки");
+		JMenu file=new JMenu("Р¤Р°Р№Р»");
+		JMenuItem saveItem=new JMenuItem("РЎРѕС…СЂР°РЅРёС‚СЊ");
+		JMenuItem settings= new JMenuItem("РќР°СЃС‚СЂРѕР№РєРё");
 		JPanel panel= new JPanel();
-		JButton _button= new JButton("Печать");
+		JButton _button= new JButton("РџРµС‡Р°С‚СЊ");
 		ArrayList<String> array=talon.getTrayArray();
 		ArrayList<String> parray=PrintTalon.getSystemPrintres();
 		comboboxTray.setModel(new DefaultComboBoxModel(array.toArray()));
@@ -330,7 +330,7 @@ public class View  {
 			
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				int DialogKey=JOptionPane.showConfirmDialog(frame, "Сохранить?");
+				int DialogKey=JOptionPane.showConfirmDialog(frame, "РЎРѕС…СЂР°РЅРёС‚СЊ?");
 				switch(DialogKey){
 				case 0:
 					System.out.println("0");
