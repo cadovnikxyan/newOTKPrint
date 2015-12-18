@@ -83,9 +83,7 @@ public class View  {
 		
 		talon.init();
 		talon.filTrayName();
-		
-		
-		
+
 		menuInit();
 		
 		frame.setJMenuBar(menubar);
@@ -178,8 +176,7 @@ public class View  {
 			}
 			
 			public void windowActivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		
@@ -250,6 +247,15 @@ public class View  {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				System.out.println(combobox.getSelectedItem());
+				 SwingUtilities.invokeLater(new Runnable() {
+
+					public void run() {
+						// TODO Auto-generated method stub
+					addView add=new addView();
+					add.init();
+					}
+					 
+				 });
 			}
 		});
 		button.addMouseMotionListener(new MouseMotionListener() {
@@ -302,13 +308,9 @@ public class View  {
 				// TODO Auto-generated method stub
 				talon.setPrinterName(
 				comboboxPrint.getSelectedItem().toString());
-				long start=System.currentTimeMillis();
-				talon.init();
+				talon.init();				
 				talon.filTrayName();
-				long stop=System.currentTimeMillis();
-				System.out.println(stop-start);
-				ArrayList<String> _array=talon.getTrayArray();
-				
+				ArrayList<String> _array=talon.getTrayArray();				
 				comboboxTray.setModel(new DefaultComboBoxModel(_array.toArray()));
 				comboboxTray.updateUI();
 			}
@@ -333,7 +335,7 @@ public class View  {
 				talon.setMediaId(comboboxTray.getSelectedItem().toString().split(":")[1]);
 				talon.setPrinterName(comboboxPrint.getSelectedItem().toString());
 				talon.init();
-//				talon.filTrayName();
+
 				talon.createJob();
 			}
 		});
@@ -384,8 +386,6 @@ public class View  {
 	                f.setSize(img.getImageWidth()/4, img.getImageHeight()/4);
 	                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	                f.setVisible(true);
-	                
-	               
 	            }
 	        });
 	}

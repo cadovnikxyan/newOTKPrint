@@ -8,6 +8,7 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Media;
 import javax.print.attribute.standard.MediaTray;
 import javax.print.attribute.standard.PrinterName;
+
 import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
@@ -53,14 +54,16 @@ public class PrintTalon  {
 	public void filTrayName(){
 		
 		   // we chose something compatible with the printable interface
-//     DocFlavor flavor = ;
+		if(trayArray.size()!=0){
+			trayArray.removeAll(trayArray);			
+ 		}
      for (PrintService service : services) {
          // we retrieve all the supported attributes of type Media
          // we can receive MediaTray, MediaSizeName, ...
          Object o = service.getSupportedAttributeValues(Media.class,
         		 		DocFlavor.SERVICE_FORMATTED.PRINTABLE, null);
          if (o != null && o.getClass().isArray()) {
-             for (Media media : (Media[]) o) {
+             for (Media media : (Media[]) o) {           	
                  // we collect the MediaTray available
                  if (media instanceof MediaTray) {
                  	String buf=new String(media+":"+media.getValue())
@@ -125,10 +128,11 @@ public class PrintTalon  {
 		
 }
 
-
 class PrintPage implements Printable {
 
-	
+	public PrintPage(){
+		
+	}
     public int print(Graphics pg, PageFormat pf, int pageNum) throws PrinterException{
         // we print an empty page
         if (pageNum >= 1){

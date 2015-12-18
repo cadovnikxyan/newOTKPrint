@@ -47,7 +47,6 @@ public class ImageView extends JPanel{
 				@Override
             	protected void paintComponent(Graphics g){
             		super.paintComponent(g);
-//            		g.drawImage(image, 0, 0,image.getWidth()/4 ,image.getHeight()/4, null);
             		Graphics2D g2d=(Graphics2D) g.create();
             		AffineTransform at = new AffineTransform();
             		at.scale(defaultScale, defaultScale);
