@@ -37,10 +37,10 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-public class View  {
+public class View extends AbstractView {
 	
 	final private JFrame frame= new JFrame("OTK_Print");
-
+	
 	final private Label label=new Label("Номер талона",Label.CENTER);
 	final private Label label1=new Label("Заводской номер",Label.CENTER);
 	final private Label label2=new Label("Количество",Label.CENTER);
@@ -73,9 +73,7 @@ public class View  {
 	
 	final private SettingsView settingsView= new SettingsView();
 	
-	
-	
-	
+
 	public View() throws ParserConfigurationException, SAXException, IOException{
 		frame.setPreferredSize(new Dimension(600, 170));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -251,8 +249,16 @@ public class View  {
 
 					public void run() {
 						// TODO Auto-generated method stub
-					addView add=new addView();
+					AddView add = new AddView();
 					add.init();
+					
+						String[] ad=xml.getStringTypes("setup");
+						for(String str : ad){
+							System.out.println(str);
+							
+						}
+					
+				
 					}
 					 
 				 });
@@ -277,7 +283,7 @@ public class View  {
 				System.out.println("... clicked!");
 				try {
 					imageRead("D://1.png");
-					
+				
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -335,8 +341,17 @@ public class View  {
 				talon.setMediaId(comboboxTray.getSelectedItem().toString().split(":")[1]);
 				talon.setPrinterName(comboboxPrint.getSelectedItem().toString());
 				talon.init();
-
-				talon.createJob();
+				String[] dataArray= new String[3];
+				dataArray[0]=spinner.getValue().toString();
+				dataArray[1]=combobox.getSelectedItem().toString();
+				dataArray[2]=spinner1.getValue().toString();
+				String[] XYFont=xml.getStringTypes("setup")[0].replace("    ","").split("\\r?\\n");
+				Data data = new Data(dataArray,XYFont);
+				for(int i=0;i<dataArray.length;i++){
+					System.out.println(data.getNextData());					
+				}
+				talon.setStringData(dataArray);
+				//talon.createJob();
 			}
 		});
 		settings.addActionListener(new ActionListener() {
@@ -393,7 +408,7 @@ public class View  {
 
 static public void main(String[] args) throws ParserConfigurationException, 
 SAXException, IOException, PrinterException{
-	
+		
 	View view=new View();
 	view.run();
 

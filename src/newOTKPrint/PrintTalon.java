@@ -31,7 +31,7 @@ public class PrintTalon  {
     private PrintService[] services=null;
     private PrintService defaultPrintService =null;
     private PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
-    
+    private String[] dataArray=null;
     
 	public PrintTalon() {
 
@@ -85,7 +85,7 @@ public class PrintTalon  {
 		            DocPrintJob job = services[0].createPrintJob();		         
 		            try {
 		                // we create a document that implements the printable interface
-		                Doc doc = new SimpleDoc(new PrintPage(),
+		                Doc doc = new SimpleDoc(new PrintPage(dataArray),
 		                		DocFlavor.SERVICE_FORMATTED.PRINTABLE, null);
 
 		                // we print using the selected attributes (paper tray)
@@ -125,20 +125,37 @@ public class PrintTalon  {
 		return printerArray;
 		
 	}
+	public void setStringData(String[] array){
+		dataArray=array;
+	}
 		
 }
 
 class PrintPage implements Printable {
 
-	public PrintPage(){
-		
+	private String[] dataArray=null;
+	public PrintPage(String[] array){
+		dataArray=array;
 	}
     public int print(Graphics pg, PageFormat pf, int pageNum) throws PrinterException{
         // we print an empty page
         if (pageNum >= 1){
         	return Printable.NO_SUCH_PAGE;	
         }
-        pg.drawString("Hello World!", 100, 100);
+        int y=100;
+        for(int j=0;j<3;j++){
+        	for(int i=0;i<dataArray.length;i++){
+        		if(j==1){
+        			pg.setFont(new Font("Times New Roman",Font.PLAIN,6));
+        		}
+        		if(dataArray.equals(null)){
+        			pg.drawString("Hello!",100,y);
+        		}else{
+        			pg.drawString(dataArray[i].toString(), 100, y+=10);
+        		}
+        		
+        	}
+        }
         
         return Printable.PAGE_EXISTS;
     }

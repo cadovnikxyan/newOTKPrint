@@ -31,6 +31,7 @@ public class XmlParserSettings {
 		   for(int i=0;i<_list.getLength();i++){
 			   Element value= (Element)_list.item(i);
 			  args[i]= value.getTextContent();
+			  
 		   }
 		   return args;
 	}
@@ -39,6 +40,7 @@ public class XmlParserSettings {
 		Element value = (Element)doc.getElementsByTagName(tag).item(0);
 		return Integer.parseInt(value.getTextContent());
 	}
+
 	public int getTalonNumberValue(){
 		 Element value = (Element)doc.getElementsByTagName("talon").item(0);
 		return Integer.parseInt(value.getTextContent());

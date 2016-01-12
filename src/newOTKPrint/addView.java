@@ -7,26 +7,28 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class addView {
+public class AddView extends AbstractView{
 
-	private final JFrame _frame= new JFrame("Добавление изделий");
-	private final JPanel _panel= new JPanel();
-	private final JComboBox _combobox= new JComboBox();
-	private final JButton _button= new JButton();
+	private final JFrame frame= new JFrame("Добавление изделий");
+	private final JPanel panel= new JPanel();
+	private final JComboBox combobox= new JComboBox();
+	private final JButton button= new JButton();
 	
-	public addView(){
-		_frame.setPreferredSize(new Dimension(500, 100));
-		_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		_frame.setResizable(false);
-		_panel.setLayout(new BorderLayout());
-		_panel.add(_combobox,BorderLayout.CENTER);
-		_panel.add(_button,BorderLayout.EAST);
-		_frame.getContentPane().add(_panel);
-		_frame.pack();
-		_frame.setLocationRelativeTo(null);
+	public AddView(){
+		frame.setPreferredSize(new Dimension(500, 70));
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setResizable(false);
+		panel.setLayout(new BorderLayout());
+		panel.add(combobox,BorderLayout.CENTER);
+		combobox.setEditable(true);
+		panel.add(button,BorderLayout.EAST);
+		frame.getContentPane().add(panel);
+		frame.pack();
+		frame.setLocationRelativeTo(null);
 	}
 	public void init(){
-		_frame.setVisible(true);
+		frame.setVisible(true);
+	
 		
 	}
 	
