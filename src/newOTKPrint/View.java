@@ -345,7 +345,9 @@ public class View extends AbstractView {
 				dataArray[0]=spinner.getValue().toString();
 				dataArray[1]=combobox.getSelectedItem().toString();
 				dataArray[2]=spinner1.getValue().toString();
-				String[] XYFont=xml.getStringTypes("setup")[0].replace("    ","").split("\\r?\\n");
+				String[] XYFont=xml.getStringTypes("setup")[0].replace("    ","")
+															  .replace("  ", "")
+															  .split("\\r?\\n");
 				Data data = new Data(dataArray,XYFont);
 				for(int i=0;i<dataArray.length;i++){
 					System.out.println(data.getNextData());					

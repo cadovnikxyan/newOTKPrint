@@ -7,34 +7,42 @@ public class Data {
 	private int y[]=new int[9];
 	private int font[]=new int[9];
 	
-	private static int dataPositionFlag=0;
-	private static int xPositionFlag=0;
-	private static int yPositionFlag=0;
-	private static int fontPositionFlag=0;
+	private  int dataPositionFlag=0;
+	private  int xPositionFlag=0;
+	private  int yPositionFlag=0;
+	private  int fontPositionFlag=0;
 	
 	
 	public Data(String[] _data, String[] XYFont){
-		int f=0;
+	
 		int[] xyf= StringParserInt(XYFont);
-			for(int i=0;i<xyf.length;i++){
-				if(i==9){
-					this.font[f++]=xyf[i];
-				}
-			}	
+//			for(int i=0;i<xyf.length;i++){
+//				if(i==17){
+//					
+//				}
+//			}	
 			int g=0;
-			for(int j=8;j<xyf.length;j++){	
-				if(g<9){
+			for(int j=0;j<9;j++){										
 					this.x[g]= xyf[j];
-					this.y[g]=xyf[j++];							
-					g++;					
-				}
+					g++;									
+			}	
+			g=0;
+			for(int j=9;j<18;j++){				
+					this.y[g]=xyf[j];
+					g++;
+			}			
+			g=0;
+			for(int j=18;j<xyf.length-1;j++){
+					this.font[g]=xyf[j];
+					g++;
+				
 			}
 		this.data =_data;
 	}
 	
 	private int[] StringParserInt(String[] xyf){
-		int[] I=new int[xyf.length-1];
-		for(int i=0;i<xyf.length-1;i++){
+		int[] I=new int[xyf.length];
+		for(int i=0;i<xyf.length;i++){
 			if(!xyf[i].equals("")){
 				I[i]=Integer.parseInt(xyf[i]);
 			}
