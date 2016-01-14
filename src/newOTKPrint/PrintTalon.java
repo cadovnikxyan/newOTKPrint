@@ -31,7 +31,7 @@ public class PrintTalon  {
     private PrintService[] services=null;
     private PrintService defaultPrintService =null;
     private PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
-    private String[] dataArray=null;
+    private Data data=null;
     
 	public PrintTalon() {
 
@@ -85,7 +85,7 @@ public class PrintTalon  {
 		            DocPrintJob job = services[0].createPrintJob();		         
 		            try {
 		                // we create a document that implements the printable interface
-		                Doc doc = new SimpleDoc(new PrintPage(dataArray),
+		                Doc doc = new SimpleDoc(new PrintPage(data),
 		                		DocFlavor.SERVICE_FORMATTED.PRINTABLE, null);
 
 		                // we print using the selected attributes (paper tray)
@@ -125,38 +125,32 @@ public class PrintTalon  {
 		return printerArray;
 		
 	}
-	public void setStringData(String[] array){
-		dataArray=array;
+	public void setStringData(Data array){
+		this.data=array;
 	}
 		
 }
 
 class PrintPage implements Printable {
 
-	private String[] dataArray=null;
-	public PrintPage(String[] array){
-		dataArray=array;
+
+	private Data data;
+	public PrintPage(Data _data){
+		this.data=_data;
 	}
     public int print(Graphics pg, PageFormat pf, int pageNum) throws PrinterException{
-        // we print an empty page
+       
         if (pageNum >= 1){
         	return Printable.NO_SUCH_PAGE;	
         }
-        int y=100;
-        for(int j=0;j<3;j++){
-        	for(int i=0;i<dataArray.length;i++){
-        		if(j==1){
-        			pg.setFont(new Font("Times New Roman",Font.PLAIN,6));
-        		}
-        		if(dataArray.equals(null)){
-        			pg.drawString("Hello!",100,y);
-        		}else{
-        			pg.drawString(dataArray[i].toString(), 100, y+=10);
-        		}
-        		
-        	}
-        }
-        
+       try{
+    	   for(int i=0;i<9;i++){              		
+    		   pg.setFont(new Font("Times New Roman",Font.PLAIN,data.getNextFont()));        		       		
+    		   pg.drawString(data.getNextData(), data.getNextX(), data.getNextY()); 
+    	   	}
+    	   }catch(NullPointerException e){
+    		   System.err.println(e.getMessage());
+    	   }       
         return Printable.PAGE_EXISTS;
     }
 }

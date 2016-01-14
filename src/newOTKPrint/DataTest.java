@@ -1,0 +1,16 @@
+package newOTKPrint;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class DataTest {
+
+	@Test
+	public void test() {
+		
+		fail("Not yet implemented");
+		
+	}
+
+}

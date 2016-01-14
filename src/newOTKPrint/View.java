@@ -350,8 +350,8 @@ public class View extends AbstractView {
 				for(int i=0;i<dataArray.length;i++){
 					System.out.println(data.getNextData());					
 				}
-				talon.setStringData(dataArray);
-				//talon.createJob();
+				talon.setStringData(data);
+				talon.createJob();
 			}
 		});
 		settings.addActionListener(new ActionListener() {

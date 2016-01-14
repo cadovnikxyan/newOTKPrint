@@ -1,13 +1,16 @@
 package newOTKPrint;
 
 public class Data {
-
-	private String data[];
+	
+	private String data[]= new String[3];
 	private int x[]=new int[9];
 	private int y[]=new int[9];
 	private int font[]=new int[9];
-	private static boolean flag=true;
+	
 	private static int dataPositionFlag=0;
+	private static int xPositionFlag=0;
+	private static int yPositionFlag=0;
+	private static int fontPositionFlag=0;
 	
 	
 	public Data(String[] _data, String[] XYFont){
@@ -15,7 +18,6 @@ public class Data {
 		int[] xyf= StringParserInt(XYFont);
 			for(int i=0;i<xyf.length;i++){
 				if(i==9){
-					f=0;
 					this.font[f++]=xyf[i];
 				}
 			}	
@@ -49,14 +51,37 @@ public class Data {
 		}
 		return null;
 	}
-//	public int getNextX(){
-//		return this.x;
-//	}
-//	public int getNextY(){
-//		return this.y;
-//	}
-//	public int getNextFont(){
-//		return this.font;
-//	}
-//	
+	
+	public int getNextX(){
+		if(xPositionFlag<x.length){
+			xPositionFlag++;
+			return this.x[xPositionFlag-1];			
+		}else{
+			xPositionFlag=0;
+		}
+		return 0;
+	}
+	public int getNextY(){
+		if(yPositionFlag<y.length){
+			yPositionFlag++;
+			return this.y[yPositionFlag-1];			
+		}else{
+			yPositionFlag=0;
+		}
+		return 0;
+	}
+	public int getNextFont(){
+		if(fontPositionFlag<font.length){
+			fontPositionFlag++;
+			return this.font[fontPositionFlag-1];			
+		}else{
+			fontPositionFlag=0;
+		}
+		return 0;
+	}
+	
+	public int length(){
+		return this.data.length;
+	}
+	
 }
