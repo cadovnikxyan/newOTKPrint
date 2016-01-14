@@ -149,7 +149,7 @@ class PrintPage implements Printable {
     		   pg.drawString(data.getNextData(), data.getNextX(), data.getNextY()); 
     	   	}
     	   }catch(NullPointerException e){
-    		   System.err.println(e.getMessage());
+    		   e.printStackTrace();
     	   }       
         return Printable.PAGE_EXISTS;
     }

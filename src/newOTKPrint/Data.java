@@ -7,20 +7,15 @@ public class Data {
 	private int y[]=new int[9];
 	private int font[]=new int[9];
 	
-	private  int dataPositionFlag=0;
-	private  int xPositionFlag=0;
-	private  int yPositionFlag=0;
-	private  int fontPositionFlag=0;
+	private int dataPositionFlag=0;
+	private int xPositionFlag=0;
+	private int yPositionFlag=0;
+	private int fontPositionFlag=0;
 	
 	
 	public Data(String[] _data, String[] XYFont){
 	
-		int[] xyf= StringParserInt(XYFont);
-//			for(int i=0;i<xyf.length;i++){
-//				if(i==17){
-//					
-//				}
-//			}	
+			int[] xyf= StringParserInt(XYFont);	
 			int g=0;
 			for(int j=0;j<9;j++){										
 					this.x[g]= xyf[j];
@@ -56,8 +51,9 @@ public class Data {
 			return this.data[dataPositionFlag-1];			
 		}else{
 			dataPositionFlag=0;
+			return this.data[dataPositionFlag];
 		}
-		return null;
+		
 	}
 	
 	public int getNextX(){
@@ -66,8 +62,9 @@ public class Data {
 			return this.x[xPositionFlag-1];			
 		}else{
 			xPositionFlag=0;
+			return this.x[xPositionFlag];	
 		}
-		return 0;
+	
 	}
 	public int getNextY(){
 		if(yPositionFlag<y.length){
@@ -75,8 +72,9 @@ public class Data {
 			return this.y[yPositionFlag-1];			
 		}else{
 			yPositionFlag=0;
+			return this.y[yPositionFlag];	
 		}
-		return 0;
+		
 	}
 	public int getNextFont(){
 		if(fontPositionFlag<font.length){
@@ -84,8 +82,9 @@ public class Data {
 			return this.font[fontPositionFlag-1];			
 		}else{
 			fontPositionFlag=0;
+			return this.font[fontPositionFlag];
 		}
-		return 0;
+		
 	}
 	
 	public int length(){
