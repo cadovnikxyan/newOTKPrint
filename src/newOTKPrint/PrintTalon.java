@@ -144,9 +144,12 @@ class PrintPage implements Printable {
         	return Printable.NO_SUCH_PAGE;	
         }
        try{
-    	   for(int i=0;i<9;i++){              		
-    		   pg.setFont(new Font("Times New Roman",Font.PLAIN,data.getNextFont()));        		       		
+    	   for(int i=0;i<9;i++){      
+    		   
+    		  // pg.setFont(new Font("Times New Roman",Font.PLAIN,data.getNextFont()));        		       		
     		   pg.drawString(data.getNextData(), data.getNextX(), data.getNextY()); 
+    		 //  StringBuilder b= new StringBuilder(data.getNextData());
+    		   
     	   	}
     	   }catch(NullPointerException e){
     		   e.printStackTrace();

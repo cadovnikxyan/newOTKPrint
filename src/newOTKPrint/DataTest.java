@@ -51,15 +51,19 @@ public class DataTest {
 //		for(int i=0;i<27;i++){
 //			System.out.println("XYFont["+i+"]="+"\""+s[i]+"\""+";");			
 //		}
-		
-		data= new Data(dataS,XYFont);
+		try{
+			data= new Data(dataS,XYFont);
+			
+		}catch(NullPointerException e){
+			fail("test if failed!");
+		}
 		for(int i=0;i<9;i++){
 			
 			System.out.println("Font: "+data.getNextFont());
-			System.out.println("X: "+data.getNextX());
-			System.out.println("Y: "+data.getNextY());			
+//			System.out.println("X: "+data.getNextX());
+//			System.out.println("Y: "+data.getNextY());			
 		}
-		fail("Not yet implemented");
+		
 		
 	}
 

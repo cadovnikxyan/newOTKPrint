@@ -71,7 +71,7 @@ public class View extends AbstractView {
 	
 	final private PrintTalon talon= new PrintTalon();
 	
-	final private SettingsView settingsView= new SettingsView();
+	private SettingsView settingsView=null;
 	
 
 	public View() throws ParserConfigurationException, SAXException, IOException{
@@ -360,6 +360,7 @@ public class View extends AbstractView {
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				settingsView=new SettingsView(xml);
 				settingsView.run();
 			}
 		});
