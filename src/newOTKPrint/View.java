@@ -15,8 +15,10 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.print.PrinterException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import javax.management.modelmbean.XMLParseException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -34,6 +36,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import org.xml.sax.SAXException;
 
@@ -121,7 +125,7 @@ public class View extends AbstractView {
 				// TODO Auto-generated method stub
 				frame.setState(JFrame.NORMAL);
 				try{
-					xml= new XmlParserSettings("D://settings.xls");
+					xml= new XmlParserSettings("settings.xml");
 					spinnerXmlInit();
 				}catch(IOException e){
 					e.printStackTrace();
@@ -244,7 +248,19 @@ public class View extends AbstractView {
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println(combobox.getSelectedItem());
+				//System.out.println(combobox.getSelectedItem());
+				try {
+					xml.insertElement("setup", "123321");
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (TransformerFactoryConfigurationError e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (TransformerException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				 SwingUtilities.invokeLater(new Runnable() {
 
 					public void run() {
@@ -252,12 +268,12 @@ public class View extends AbstractView {
 					AddView add = new AddView();
 					add.init();
 					
-						String[] ad=xml.getStringTypes("setup");
-						for(String str : ad){
-							System.out.println(str);
-							
-						}
-					
+//						String[] ad=xml.getStringTypes("setup");
+//						for(String str : ad){
+//							System.out.println(str);
+//							
+//						}
+//					
 				
 					}
 					 
@@ -360,8 +376,21 @@ public class View extends AbstractView {
 			
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				settingsView=new SettingsView(xml);
-				settingsView.run();
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					public void run() {
+						// TODO Auto-generated method stub
+					
+							try {
+								settingsView=new SettingsView(xml,null);
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+					
+						settingsView.run();						
+					}
+				});
 			}
 		});
 		saveItem.addActionListener(new ActionListener() {
@@ -411,9 +440,28 @@ public class View extends AbstractView {
 
 static public void main(String[] args) throws ParserConfigurationException, 
 SAXException, IOException, PrinterException{
+	SwingUtilities.invokeLater(new Runnable() {
 		
-	View view=new View();
-	view.run();
+		public void run() {
+			// TODO Auto-generated method stub
+			View view;
+			try {
+				view = new View();
+				view.run();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	});
+	
 
  }
 }
